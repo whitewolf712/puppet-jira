@@ -61,7 +61,7 @@ class jira::config inherits jira {
     notify  => Class['jira::service'],
   }
 
-  if ($version[0] == '7' ){
+  if (versioncmp($jira::version, '7.0.0') >= 0 ){
     file { "${jira::webappdir}/conf/server.xml":
       content => template('jira/server7.xml.erb'),
       mode    => '0600',
