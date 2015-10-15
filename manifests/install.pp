@@ -41,9 +41,7 @@ class jira::install {
   }
 
   # https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-7.0.0-jira-7.0.0-x64.bin
-
-  $version = split($jira::version, '.')
-  if ($version[0] == '7' ){
+  if (versioncmp($jira::version, '7.0.0') >= 0 ){
     $file = "atlassian-jira-software-7.0.0-${jira::product}-${jira::version}${jira::format}"
   }else {
     $file = "atlassian-${jira::product}-${jira::version}${jira::format}"
