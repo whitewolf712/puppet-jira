@@ -27,7 +27,7 @@ class jira::params {
     } /Debian/: {
       if $::operatingsystemmajrelease == '8' {
         $json_packages           = 'ruby-json'
-        $service_file_location   = '/etc/systemd/user/jira.service'
+        $service_file_location   = '/lib/systemd/system/jira.service'
         $service_file_template   = 'jira/jira.service.erb'
         $service_lockfile        = '/var/lock/subsys/jira'
         $service_systemd         = true
