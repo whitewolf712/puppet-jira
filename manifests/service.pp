@@ -23,6 +23,7 @@ class jira::service(
   $service_file_location = $jira::params::service_file_location,
   $service_file_template = $jira::params::service_file_template,
   $service_lockfile      = $jira::params::service_lockfile,
+  $service_systemd       = $jira::params::service_systemd,
 
 ) inherits jira::params {
   
@@ -38,9 +39,7 @@ class jira::service(
     validate_string($service_ensure)
     validate_bool($service_enable)
 
-    # TODO: Move systemd atribute to config variable
-    if ($::osfamily == 'RedHat' and $::operatingsystemmajrelease == '7')
-      or ($::osfamily == 'Debian' and $::operatingsystemmajrelease == '8') {
+    if $service_systemd {
       exec { 'refresh_systemd':
         command     => 'systemctl daemon-reload',
         refreshonly => true,
