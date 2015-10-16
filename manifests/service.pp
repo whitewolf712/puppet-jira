@@ -38,7 +38,9 @@ class jira::service(
     validate_string($service_ensure)
     validate_bool($service_enable)
 
-    if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '7' {
+    # TODO: Move systemd atribute to config variable
+    if ($::osfamily == 'RedHat' and $::operatingsystemmajrelease == '7')
+      or ($::osfamily == 'Debian' and $::operatingsystemmajrelease == '8') {
       exec { 'refresh_systemd':
         command     => 'systemctl daemon-reload',
         refreshonly => true,
